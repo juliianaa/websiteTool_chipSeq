@@ -76,7 +76,7 @@ ol li
 { background: #FFF url(../img/background.jpg) repeat-x;}
 
 #header
-{ width: 920px;
+{ width: 1100px;
   height: 200px;
   padding-top: 20px;
   background: transparent;}
@@ -99,9 +99,9 @@ span
   margin-top: -15px;}
 
 #menubar
-{ width: 920px;
+{ width: 1100px;
   height: 50px;
-  text-align: center; 
+  text-align: left; 
   margin: 0 auto;
   background: transparent;
   color: #000;} 
@@ -120,7 +120,7 @@ span
   background: #FFF url(../img/pattern.png) repeat;}
   
 #site_content
-{ width: 920px;
+{ width: 1100px;
   overflow: hidden;
   margin: 0 auto;
   padding: 0;
@@ -190,19 +190,21 @@ span
 { margin-top: 20px;
   height: 15px;
   margin-top: -100px;
-  width: 920px;
-  background: transparent url(../img/container_header.png) repeat-x top;}
-
-.flip-vertical {
-    -moz-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    transform: scaleY(-1);
-    -ms-filter: flipv; /*IE*/
-    filter: flipv;
-    background: transparent url(../img/container_header.png) repeat-x bottom;
+  width: 1100px;
+  background: transparent url(../img/container_header.png) no-repeat top;
+  background-size: 1100px;
 }
-  
+
+.about {
+    width: 870px;
+    margin: 0 auto;
+}
+
+.about h1, .section h1 {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 12px;
+}
+
 #footer
 { padding: 0 20px 0 20px;
   background: #1D1D1D;}
@@ -247,9 +249,8 @@ ul.links li a:hover
   height: 30px;
   padding: 5px 35px 5px 0px;
   overflow: hidden;
-  float: left;
-  margin: 0 40px 0 0px;
-  width: 650px;
+  float: center;
+  width: 1100px;
 }
 
 .lavaLampWithImage li {
@@ -265,10 +266,10 @@ ul.links li a:hover
 }
 
 .lavaLampWithImage li a {
-  font: normal 120% arial, sans-serif;
+  font: normal 100% arial, sans-serif;
   text-decoration: none;
   color: #1D1D1D;
-  text-align: center;
+  text-align: right;
   letter-spacing: 0;
   z-index: 10;
   display: block;
