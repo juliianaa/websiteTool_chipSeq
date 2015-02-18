@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/callServlet.js" type="text/javascript"></script>
     </head>
 
         <body>
@@ -44,10 +45,10 @@
 
                                 <div id="files">
                                     <h3>Upload file</h3>
-                                    <form method="post" enctype="multipart/form-data">
-                                        Upload File: <input type="file" name="upfile[]" multiple=""><br/>
+                                    <form>
+                                        Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
                                         <br style="clear:both" />
-                                        <input type="submit" value="Submit" id="submit">
+                                        <input id="uploadBtn" type="button" value="Ajax Submit" onClick="performAjaxSubmit();">
                                      </form>
                                 </div>
 

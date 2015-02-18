@@ -1,32 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eriba.jwlgoh.webServlets;
 
-import eriba.jwlgoh.ImplementR.JavaRIntegration;
 import eriba.jwlgoh.ImplementR.createTempDir;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
 
 /**
- *
- * @author Eriba
+ * Servlet implementation class FileUploader
  */
 public class FileUploadServlet extends HttpServlet {
-   /**
-     * Constructs the directory path to store upload file
+   
+    private static final long serialVersionUID = 1L;
+     /**
+    * Constructs the directory path to store upload file
     **/
     private final String uploadPath = "C:\\Users\\Eriba\\Documents\\temp_chromstaR\\"; // Path to temporary files
     /**
@@ -38,87 +39,41 @@ public class FileUploadServlet extends HttpServlet {
     **/
     private File storeFile;
 
-
-    /**
-     * Upon receiving file upload submission, parses the request to read upload
-     * data and saves the file on disk.
-     *
-     * @param request
-     * @param response
-     * @throws javax.servlet.ServletException
-     * @throws java.io.IOException
-     */
     @Override
     protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        // checks if the request actually contains upload file
-        if (!ServletFileUpload.isMultipartContent(request)) {
-            // if not, we stop here
-            PrintWriter writer = response.getWriter();
-            writer.println("Error: Form must has enctype=multipart/form-data.");
-            writer.flush();
-            return;
-        }
+            HttpServletResponse response)
+            throws ServletException, IOException {
 
-         // configures upload settings
-        DiskFileItemFactory factory = new DiskFileItemFactory();
+            String ajaxUpdateResult = "";
 
-        // Create a new file upload handler
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        
-        JavaRIntegration r = new JavaRIntegration();
-        createTempDir tmpDir = new createTempDir();
-        Path tmp_dir = tmpDir.createDir(uploadPath);
+            try {
+                    List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                    createTempDir tmpDir = new createTempDir();
+                    Path tmp_dir = tmpDir.createDir(uploadPath);
+                    if (items != null && items.size() > 0) {
+                         // iterates over form's fields
+                        for (FileItem item : items) {
 
-        try {
-            // parses the request's content to extract file data
-            @SuppressWarnings("unchecked")
-            List<FileItem> formItems = upload.parseRequest(request);
-            if (formItems != null && formItems.size() > 0) {
-                // iterates over form's fields
-                for (FileItem item : formItems) {
-                    // processes only fields that are not form fields in this case the file
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
+                                if (!item.isFormField()) {
+                                        String fileName = new File(item.getName()).getName();
 
-                        filePath = tmp_dir + File.separator + fileName;
-                        storeFile = new File(filePath);
+                                        filePath = tmp_dir + File.separator + fileName;
+                                        storeFile = new File(filePath);
 
-                        // saves the file on disk
-                        item.write(storeFile);
+                                        // saves the file on disk
+                                        item.write(storeFile);
+
+                                        ajaxUpdateResult += storeFile;
+                                }
+                        }
                     }
-                }
-                
-               //Calls the script that checks the file
-
-                
-                //gets an number back as result. The number indicates how many correct answers the program found in the user file
-
-
-                //If size is not the same, this will then be shown in the jsp
-//                request.setAttribute("results", "hallo");
-                
-                
-
-
-            }
-        } catch (Exception ex) {
-            request.setAttribute("message",
-                    "There was an error: " + ex.getMessage());
+            } catch (FileUploadException e) {
+                    throw new ServletException("Parsing file upload failed.", e);
+            } catch (Exception ex) {
+            Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-//         //delete file once done
-//        if(!storeFile.delete()){
-//            request.setAttribute("message",
-//                    "There was an error: file could not be deleted");
-//        }
-        
-        // redirects client to page
-//        RequestDispatcher view = request.getRequestDispatcher("/html/results.jsp");
-//        view.forward(request, response);
-        
-       
 
+            response.getWriter().print(ajaxUpdateResult);
     }
-    
+
 }
