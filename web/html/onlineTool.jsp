@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Eriba</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
     </head>
 
         <body>
@@ -37,19 +39,22 @@
                                     magna, aliquam lobortis nibh dictum eget. 
                                 </p>
                                 <br style="clear:both" />
+                                
+                                
 
-                                <div>
+                                <div id="files">
                                     <h3>Upload file</h3>
-                                    <form action=""
-                                    method="post" enctype="multipart/form-data">
-                                        File name: <input type="text" name="fname"><br>
-                                        File: <input type="file" name="file"><br>
-                                        <input type="submit" value="Upload">
-                                    </form>       
+                                    <form method="post" enctype="multipart/form-data">
+                                        Upload File: <input type="file" name="upfile[]" multiple=""><br/>
+                                        <br style="clear:both" />
+                                        <input type="submit" value="Submit" id="submit">
+                                     </form>
                                 </div>
-                                <br style="clear:both" />
 
-                                <div>
+                                <div id="resultsDiv"></div>
+                                
+
+                                <div id="advancedOptions">
                                     <h3>After file is uploaded</h3>
                                     <form action="">
                                         <input type="checkbox" name="rFunction" value="callPeaksUnivariate">call Peaks Univariate<br> 

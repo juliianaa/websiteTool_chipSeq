@@ -4,7 +4,6 @@
     Author     : Eriba
 --%>
 
-<div class="flip-vertical"><p>&nbsp;</p></div>
 <div id="footer">  
     <div id="footer_content">
         copyright

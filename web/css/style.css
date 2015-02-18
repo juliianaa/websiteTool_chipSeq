@@ -1,6 +1,5 @@
-html
+html, body, main, site_content
 { height: 100%;}
-
 *
 { margin: 0;
   padding: 0;}
@@ -8,7 +7,8 @@ html
 body
 { font: normal 14px sans-serif;
   background: #FFF;
-  color: #5D5D5D;}
+  color: #5D5D5D;
+}
 
 p
 { padding: 0 0 20px 0;
@@ -117,7 +117,8 @@ span
 #site_background
 { margin: 0 auto;
   padding: 0;
-  background: #FFF url(../img/pattern.png) repeat;}
+  background: #FFF url(../img/pattern.png) repeat;
+}
   
 #site_content
 { width: 1100px;

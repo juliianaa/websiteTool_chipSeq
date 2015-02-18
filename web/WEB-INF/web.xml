@@ -4,4 +4,17 @@
         <param-name>base_url</param-name>
         <param-value>http://localhost:8080/webApplication_eriba/</param-value>
     </context-param>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>eriba.jwlgoh.webServlets.FileUploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/FileUploadServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
