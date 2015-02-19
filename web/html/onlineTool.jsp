@@ -48,7 +48,7 @@
                                     <form>
                                         Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
                                         <br style="clear:both" />
-                                        <input id="uploadBtn" type="button" value="Ajax Submit" onClick="performAjaxSubmit();">
+                                        <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
                                      </form>
                                 </div>
 
@@ -57,13 +57,16 @@
 
                                 <div id="advancedOptions">
                                     <h3>After file is uploaded</h3>
-                                    <form action="">
-                                        <input type="checkbox" name="rFunction" value="callPeaksUnivariate">call Peaks Univariate<br> 
-                                        <input type="checkbox" name="rFunction" value="callPeaksMultivariate">call Peaks Multivariate<br> 
-                                        <input type="checkbox" name="rFunction" value="changeFDR">change FDR<br>
-                                        <input type="submit" value="Submit">
+                                    <p>Example of advanced options!!! Need to change later on</p>
+                                    <form id="advancedForm">
+                                        <input type="checkbox" name="rFunction" value="Default">Default<br /> 
+                                        <input type="checkbox" name="rFunction" value="Dummy">Advanced (DUMMY)<br />
+                                        <input type="hidden" id="tempDir" value="" />
+                                        <input id="uploadBtn" type="button" value="Submit" onClick="performAJaxSubmit();">
                                     </form>
                                 </div>
+                                
+                                
                             </div>
                         </div>
                     </div><!--close content_item-->	

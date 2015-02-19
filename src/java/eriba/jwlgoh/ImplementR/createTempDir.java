@@ -15,14 +15,21 @@ import java.nio.file.Path;
  * @author Eriba
  */
 public class createTempDir {
+    
 
     public Path createDir(String uploadPath) throws IOException {
+        
+        //throw a check if File is a BED or BAM
+        //If YES -> make temporary directory and let it save on disk 
+        //NO -> then give message that fil is wrong and cannot be used
+
         final Path basedir = FileSystems.getDefault().getPath(uploadPath);
         final String tmp_dir_prefix = "HistoneHMM_";
 
-        final Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);    
+        final Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);
         
         return tmp_dir;
+
     }
-    
+        
 }
