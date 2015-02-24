@@ -12,9 +12,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Eriba</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/callServlet.js" type="text/javascript"></script>
+        <script src="js/accordion.js" type="text/javascript"></script>
     </head>
 
         <body>
@@ -42,29 +43,30 @@
                                 <br style="clear:both" />
                                 
                                 
-
-                                <div id="files">
-                                    <h3>Upload file</h3>
+                            <div id='accordion'>
+                                <h3>Upload file(s)</h3>
+                                <div>
                                     <form>
                                         Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
-                                        <br style="clear:both" />
-                                        <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
+                                        <br style="clear:both" /> 
                                      </form>
-                                </div>
-
-                                <div id="resultsDiv"></div>
-                                
-
-                                <div id="advancedOptions">
-                                    <h3>After file is uploaded</h3>
+                                </div> 
+                                <h3>Advanced options</h3>
+                                <div>
                                     <p>Example of advanced options!!! Need to change later on</p>
                                     <form id="advancedForm">
-                                        <input type="checkbox" name="rFunction" value="Default">Default<br /> 
+                                        <input type="checkbox" name="rFunction" value="Default">Default (Working on this one first)<br /> 
                                         <input type="checkbox" name="rFunction" value="Dummy">Advanced (DUMMY)<br />
                                         <input type="hidden" id="tempDir" value="" />
-                                        <input id="uploadBtn" type="button" value="Submit" onClick="performAJaxSubmit();">
+                                        <!--<input id="uploadBtn" type="button" value="Submit" onClick="performAJaxSubmit();">-->
                                     </form>
-                                </div>
+                                </div> 
+                                 <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
+                            </div>
+                                
+
+                            <div id="resultsDiv"></div>
+
                                 
                                 
                             </div>

@@ -1,10 +1,14 @@
 package eriba.jwlgoh.webServlets;
 
+import eriba.jwlgoh.ImplementR.JavaRIntegration;
 import eriba.jwlgoh.ImplementR.createTempDir;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +47,10 @@ public class FileUploadServlet extends HttpServlet {
             throws ServletException, IOException {
 
             Path tmp_dir = null;
+        
+            Map<String, Object> args = new HashMap<>();
+            ArrayList<String> files = new ArrayList<>();
+            ArrayList<String> checkedFunctions = new ArrayList<>();
 
             try {
                     List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -65,10 +73,13 @@ public class FileUploadServlet extends HttpServlet {
 
 
                                     filePath = tmp_dir + File.separator + fileName;
+                                    files.add(filePath);
                                     storeFile = new File(filePath);
 
                                     // saves the file on disk
                                     item.write(storeFile);       
+                                }if (item.isFormField()){
+                                    checkedFunctions.add(item.getString());
                                 }
                         }
                     }
@@ -77,8 +88,22 @@ public class FileUploadServlet extends HttpServlet {
             } catch (Exception ex) {
             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+            args.put("pathToTempDir", tmp_dir);
+            args.put("pathToFiles", files);
+            args.put("advancedOptions", checkedFunctions);
+            
+            //Call main script here!!!!
+            
+            JavaRIntegration calculateWithR = new JavaRIntegration();
+            calculateWithR.start(args);
+            
+            
+            
+            //results will be send here 
+//            response.getWriter().print(calculateWithR.getResults());
 
-            response.getWriter().print(tmp_dir);
+//            response.getWriter().print(tmp_dir);
+
     }
 
 }

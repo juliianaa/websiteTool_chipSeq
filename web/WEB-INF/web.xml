@@ -17,12 +17,4 @@
         <servlet-name>FileUploadServlet</servlet-name>
         <url-pattern>/FileUploadServlet</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AdvancedServlet</servlet-name>
-        <servlet-class>AdvancedServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdvancedServlet</servlet-name>
-        <url-pattern>/AdvancedServlet</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -3,25 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$(function() {
-    //The advanced option is first hidden as the user needs to upload his or her file first
-    $( "#advancedOptions" ).hide();
-    
-});
 
-//Function that will be called once the user submits the file(s) to the server.
-//This function will connect with the Servlet and send the uploaded file to the Servlet
+/**
+ * 
+ * Ajax function where the given files and checked functions will be received 
+ * and send to the Servlet once being parsed and set in the correct format.
+ * Sets in the correct format will allow the Servlet to parse the parameters
+ * without a problem.
+ *   
+ */
 function performAjaxUpload() {
-    
-    var sampleFile = document.getElementById("sampleFile").files;
-
+    //Used for parsing multipart/form-data
     var formdata = new FormData();
     
-    //Loops through the list
+    //gets the files that were given by the user
+    var sampleFile = document.getElementById("sampleFile").files;
+    
+    //Loops through the list of files
     for (i = 0; i < sampleFile.length; i++) { 
         //Appends the files to a formdata that easily can be use for HTML forms multipart/form-data
         formdata.append("sampleFile", sampleFile[i]);
     }
+    
+    var checkbox_value = [];
+    //Goes through all the checked functions
+    $(":checkbox").each(function () {
+        var ischecked = $(this).is(":checked");
+        if (ischecked) {
+            //If function is checked, then add to list
+            checkbox_value.push( $(this).val());
+        }
+    });
+    
+    //adds the list of checked function
+    formdata.append("rFunctions",checkbox_value);
+
     var xhr = new XMLHttpRequest();       
     
     //Sends the formdata as a Post to the Servlet
@@ -29,53 +45,13 @@ function performAjaxUpload() {
     xhr.send(formdata);
 
     xhr.onload = function(e) {
+        
+        $('#accordion').hide();
+//        $('resultsDiv').html(this.responseText);
+        alert(this.responseText);
+        //Results will be received here and send to the result page
 
-        //Shows the advanced options
-        $( "#advancedOptions").show();
-        //Hides the file upload option
-        $( "#files").hide();
-        //Receive the path of where the files are located and sends it to the 
-        //next function?
-        document.getElementById('tempDir').value =  this.responseText;
+    
     };                    
 
 }
-
-//Function that will be called once the user has submit wanted advanced options 
-//Will receive the wanted options and the path to where the files are
-//Sends it to the next Servlet that will call up the Java method and connect with 
-//the R packaged chromstaR
-function performAJaxSubmit() {
-    
-    var checkbox_value = [];
-    var JsonObjects = {};
-    
-    var hiddenTmpDirPath = $('input[type=hidden]:first').val(); 
-    JsonObjects['filePath'] = hiddenTmpDirPath;
-        
-    $(":checkbox").each(function () {
-        var ischecked = $(this).is(":checked");
-        if (ischecked) {
-            checkbox_value.push( $(this).val());
-        }
-    });
-    
-    JsonObjects['rFunctions'] = checkbox_value;
-  
-    json_data = JSON.stringify(JsonObjects);
-
-    var xhr = new XMLHttpRequest();       
-
-    xhr.open("POST","AdvancedServlet", true);
-
-    xhr.send(json_data);
-
-    xhr.onload = function(e) {
-        
-         alert(this.responseText);
-        //Loads the next page? where the results will be viewed
-
-    };                    
-
-}
-
