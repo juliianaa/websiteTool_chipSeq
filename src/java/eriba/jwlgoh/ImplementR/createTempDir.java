@@ -16,7 +16,12 @@ import java.nio.file.Path;
  */
 public class createTempDir {
     
-
+    /**
+     *
+     * @param uploadPath
+     * @return
+     * @throws IOException
+     */
     public Path createDir(String uploadPath) throws IOException {
         
         //throw a check if File is a BED or BAM

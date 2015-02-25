@@ -41,6 +41,13 @@ public class FileUploadServlet extends HttpServlet {
     **/
     private File storeFile;
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
@@ -49,7 +56,6 @@ public class FileUploadServlet extends HttpServlet {
             Path tmp_dir = null;
         
             Map<String, Object> args = new HashMap<>();
-            ArrayList<String> files = new ArrayList<>();
             ArrayList<String> checkedFunctions = new ArrayList<>();
 
             try {
@@ -57,6 +63,7 @@ public class FileUploadServlet extends HttpServlet {
                     
                     createTempDir tmpDir = new createTempDir();
                     tmp_dir = tmpDir.createDir(uploadPath);
+
                     
                     //receive check...tmp_dir receives either a path or an error 
                     //for example FileNotValid -> if this is the case, program 
@@ -73,7 +80,6 @@ public class FileUploadServlet extends HttpServlet {
 
 
                                     filePath = tmp_dir + File.separator + fileName;
-                                    files.add(filePath);
                                     storeFile = new File(filePath);
 
                                     // saves the file on disk
@@ -88,9 +94,15 @@ public class FileUploadServlet extends HttpServlet {
             } catch (Exception ex) {
             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-            args.put("pathToTempDir", tmp_dir);
-            args.put("pathToFiles", files);
+            
+            
+            
+            String tmpDirPath = tmp_dir.toString().replace("\\", "/");
+            
+            args.put("pathToTempDir", tmpDirPath);
             args.put("advancedOptions", checkedFunctions);
+            
+            System.out.println(args);
             
             //Call main script here!!!!
             
