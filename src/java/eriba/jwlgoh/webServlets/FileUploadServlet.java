@@ -46,14 +46,12 @@ public class FileUploadServlet extends HttpServlet {
      * @param request
      * @param response
      * @throws ServletException
-     * @throws IOException
      */
     @Override
     protected void doPost(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+            HttpServletResponse response) throws ServletException {
 
-            Path tmp_dir = null;
+            String tmp_dir = null;
         
             Map<String, Object> args = new HashMap<>();
             ArrayList<String> checkedFunctions = new ArrayList<>();
@@ -95,21 +93,20 @@ public class FileUploadServlet extends HttpServlet {
             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-            
-            
-            String tmpDirPath = tmp_dir.toString().replace("\\", "/");
-            
-            args.put("pathToTempDir", tmpDirPath);
+
+               
+            args.put("pathToTempDir", tmp_dir);
             args.put("advancedOptions", checkedFunctions);
-            
+
+
             System.out.println(args);
-            
-            //Call main script here!!!!
-            
-            JavaRIntegration calculateWithR = new JavaRIntegration();
-            calculateWithR.start(args);
-            
-            
+            try{
+                //Call main script here!!!!
+                JavaRIntegration calculateWithR = new JavaRIntegration();
+                calculateWithR.start(args);
+            }catch(NullPointerException e){
+                System.out.println("error servlet: " + e);
+            }
             
             //results will be send here 
 //            response.getWriter().print(calculateWithR.getResults());

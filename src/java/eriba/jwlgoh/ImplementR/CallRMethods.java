@@ -5,7 +5,10 @@
  */
 package eriba.jwlgoh.ImplementR;
 
+import java.io.File;
+import java.util.ArrayList;
 import org.rosuda.JRI.Rengine;
+
 
 /**
  *
@@ -13,50 +16,85 @@ import org.rosuda.JRI.Rengine;
  */
 public class CallRMethods {
     private Rengine re;
-
-    public void runDefaultFunction(Rengine re) {
-        System.out.println("in default");
-
-        //gets all the files from the tmpDir directory
+    private String tmp_dir;
+    private ArrayList advancedOptions = null;
+    private boolean exportFileExists = false;
+    private final ArrayList exportedFiles = null;
+    ConnectWithR r = new ConnectWithR();
+    /**
+     *
+     * @param firstFunction
+     * @param tmpDir
+     * @param options
+     */
+    public void startRFunctions(Object firstFunction, String tmpDir, ArrayList options) {
+        
+        tmp_dir = tmpDir;
+        advancedOptions = options;
+        
+        //receive the R connection
+        re = r.rConnect();
         
 
-//bedFiles <- list.files("C:/Users/Eriba/Documents/temp_chromstaR/HistoneHMM_7383799876110895811", full=T)
-//
-//uni.HMMs <- list()
-//binned.data.list <- list()
-//
-//for (bedfile in bedFiles) {
-//  binned.data <- bed2binned(bedfile, assembly='hg19', binsize=800, save.as.RData=F)
-//  binned.data.list[[bedfile]] <- binned.data
-//  uni.HMMs[[bedfile]] <- callPeaksUnivariate(binned.data, ID=basename(bedfile), max.time=30, eps=0.01)
-//}
-//
-//multi.hmm <- callPeaksMultivariate(uni.HMMs, eps=0.1, max.time=300)
-//
-//## Export the binned read counts
-//export.binned2wiggle(binned.data.list, filename='chromstaR-example_binned_read_counts.uni.HMM')
-//## Export the univariate calls
-//export.unihmm2bed(uni.HMMs, filename='chromstaR-example_state_calls_univariate.HMMs')
-//
-//## Export the binned read counts
-//export.multihmm2wiggle(multi.hmm, filename='chromstaR-example_read_counts_example.multi.HMM')
-//## Export the state calls for each sample
-//export.multihmm2bed(multi.hmm, separate.tracks=TRUE, exclude.states=c(0), filename='chromstaR-example_state_calls_multi.HMM')
-//       
-        
+        getExportedFiles();
+        try{ 
+            if (exportFileExists == false){
+                //If it is a default then the default option will only be done
+                //else the advanced option will be done
+                if (!(firstFunction.equals("Default")|firstFunction.equals(""))){
+                        runAdvancedFunctions();
+                    }else{
+                        runDefaultFunction();
+                    }
+            }else{
+                System.out.println("Files already exists: ");
+                System.out.println(exportedFiles);
+            }
+        }catch(NullPointerException e){
+                System.out.println("error servlet: " + e);
+        }
+    }
+
+    /**
+     *
+     * @throws NullPointerException
+     */
+    public void runDefaultFunction(){
+
+        // Calls the function that is checked by the user.
+        re.eval("defaultOptions('"+tmp_dir+"')");
+
+        getExportedFiles();
+        System.out.println(exportedFiles);
+
+        //done with the function
+        r.stopRConnection();
+
+
         
     }
 
-    public void runAdvancedFunctions(Rengine re) {
-        System.out.println("advanced");
-    }
-    
     /**
      *
      */
-    public void exportToFile(){
-        System.out.println("bla file");
+    public void runAdvancedFunctions() {
+        System.out.println("advanced");
     }
-
-    
+       
+    /**
+     *
+     */
+    public void getExportedFiles() {
+        
+        File f = new File(tmp_dir);
+        String[] getAllFiles = f.list();
+                
+        for (String bla : getAllFiles){
+            if(bla.startsWith("export")){
+                exportFileExists = true;
+                exportedFiles.add(bla);
+            }
+        }
+    }
+  
 }

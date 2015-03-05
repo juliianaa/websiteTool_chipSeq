@@ -22,7 +22,7 @@ public class createTempDir {
      * @return
      * @throws IOException
      */
-    public Path createDir(String uploadPath) throws IOException {
+    public String createDir(String uploadPath) throws IOException {
         
         //throw a check if File is a BED or BAM
         //If YES -> make temporary directory and let it save on disk 
@@ -33,7 +33,7 @@ public class createTempDir {
 
         final Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);
         
-        return tmp_dir;
+        return tmp_dir.toString().replace("\\", "/");
 
     }
         
