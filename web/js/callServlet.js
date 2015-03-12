@@ -1,17 +1,12 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * 
  * Ajax function where the given files and checked functions will be received 
  * and send to the Servlet once being parsed and set in the correct format.
- * Sets in the correct format will allow the Servlet to parse the parameters
- * without a problem.
+ * If data is set in the correct format this will allow the Servlet to parse the 
+ * parameters without a problem.
  *   
  */
+
 function performAjaxUpload() {
     //Used for parsing multipart/form-data
     var formdata = new FormData();
@@ -26,6 +21,7 @@ function performAjaxUpload() {
     }
     
     var checkbox_value = [];
+    
     //Goes through all the checked functions
     $(":checkbox").each(function () {
         var ischecked = $(this).is(":checked");
@@ -35,23 +31,26 @@ function performAjaxUpload() {
         }
     });
     
+    var arguments_value = [];
+    $('form input[type="number"]').each(function(){
+        arguments_value.push($(this).val());
+    });
+    
     //adds the list of checked function
     formdata.append("rFunctions",checkbox_value);
-
-    var xhr = new XMLHttpRequest();       
     
-    //Sends the formdata as a Post to the Servlet
-    xhr.open("POST","FileUploadServlet", true);
-    xhr.send(formdata);
+    formdata.append("argParams",arguments_value);
+    
 
-    xhr.onload = function(e) {
-        
+    $.ajax({
+      url: 'FileUploadServlet',
+      data: formdata,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){
         $('#accordion').hide();
-//        $('resultsDiv').html(this.responseText);
-        alert(this.responseText);
-        //Results will be received here and send to the result page
-
-    
-    };                    
-
+        $('#resultsDiv').html("<a href="+data+" download>zipFile</a>");
+      }
+    });
 }

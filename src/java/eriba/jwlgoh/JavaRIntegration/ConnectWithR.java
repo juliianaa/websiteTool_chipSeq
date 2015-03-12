@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eriba.jwlgoh.ImplementR;
+package eriba.jwlgoh.JavaRIntegration;
 
 import org.rosuda.JRI.Rengine;
 
@@ -12,7 +12,7 @@ import org.rosuda.JRI.Rengine;
  * @author Eriba
  */
 public class ConnectWithR {
-    private Rengine re = null;
+    private Rengine re;
 
     /**
      *

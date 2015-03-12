@@ -16,6 +16,7 @@
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/callServlet.js" type="text/javascript"></script>
         <script src="js/accordion.js" type="text/javascript"></script>
+        <script src="js/handlesAdvancedOptions.js" type="text/javascript"></script>
     </head>
 
         <body>
@@ -51,14 +52,16 @@
                                         <br style="clear:both" /> 
                                      </form>
                                 </div> 
-                                <h3>Advanced options</h3>
+                                <h3>Options</h3>
                                 <div>
                                     <p>Example of advanced options!!! Need to change later on</p>
                                     <form id="advancedForm">
-                                        <input type="checkbox" name="rFunction" value="Default">Default (Working on this one first)<br /> 
-                                        <input type="checkbox" name="rFunction" value="Dummy">Advanced (DUMMY)<br />
+                                        <input class="option" type="checkbox" name="rFunction" value="Default">Default (Done)<br /> 
+                                        <input class="option" type="checkbox" name="rFunction" value="Advanced">Advanced (Working on)<br />
+                                        <label class="advanced">Bins:</label> <input class="advanced" type="number" name="bins" value="800"><br />
+                                        <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="uMaxT" value="30"><br />
+                                        <label class="advanced">Multivariate max time: </label> <input class="advanced" type="number" name="mMaxT" value="300"><br />
                                         <input type="hidden" id="tempDir" value="" />
-                                        <!--<input id="uploadBtn" type="button" value="Submit" onClick="performAJaxSubmit();">-->
                                     </form>
                                 </div> 
                                  <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">

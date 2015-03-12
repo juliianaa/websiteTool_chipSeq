@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eriba.jwlgoh.ImplementR;
+package eriba.jwlgoh.JavaRIntegration;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -30,10 +30,9 @@ public class createTempDir {
 
         final Path basedir = FileSystems.getDefault().getPath(uploadPath);
         final String tmp_dir_prefix = "HistoneHMM_";
-
         final Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);
         
-        return tmp_dir.toString().replace("\\", "/");
+        return tmp_dir.toString();
 
     }
         

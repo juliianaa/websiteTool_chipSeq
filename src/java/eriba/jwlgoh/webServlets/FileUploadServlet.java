@@ -1,10 +1,9 @@
 package eriba.jwlgoh.webServlets;
 
-import eriba.jwlgoh.ImplementR.JavaRIntegration;
-import eriba.jwlgoh.ImplementR.createTempDir;
+import eriba.jwlgoh.JavaRIntegration.JavaRIntegration;
+import eriba.jwlgoh.JavaRIntegration.createTempDir;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +45,11 @@ public class FileUploadServlet extends HttpServlet {
      * @param request
      * @param response
      * @throws ServletException
+     * @throws java.io.IOException
      */
     @Override
     protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException {
+            HttpServletResponse response) throws ServletException, IOException {
 
             String tmp_dir = null;
         
@@ -62,20 +62,13 @@ public class FileUploadServlet extends HttpServlet {
                     createTempDir tmpDir = new createTempDir();
                     tmp_dir = tmpDir.createDir(uploadPath);
 
-                    
-                    //receive check...tmp_dir receives either a path or an error 
-                    //for example FileNotValid -> if this is the case, program 
-                    //stops and client will get a message on the website that 
-                    //the file given is not a BAM or BED format.
-                    //If file is valid then file will be saved in the temporary 
-                    //directory that had been made and given in tmp_dir
                     if (items != null && items.size() > 0) {
                          // iterates over form's fields
                         for (FileItem item : items) {
                                 
                                 if (!item.isFormField()) {
-                                    String fileName = new File(item.getName()).getName();
 
+                                    String fileName = new File(item.getName()).getName();
 
                                     filePath = tmp_dir + File.separator + fileName;
                                     storeFile = new File(filePath);
@@ -93,17 +86,16 @@ public class FileUploadServlet extends HttpServlet {
             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-
-               
             args.put("pathToTempDir", tmp_dir);
             args.put("advancedOptions", checkedFunctions);
 
 
             System.out.println(args);
             try{
-                //Call main script here!!!!
+                System.out.println("call Java R integration START OF PROGRAM");
                 JavaRIntegration calculateWithR = new JavaRIntegration();
                 calculateWithR.start(args);
+                response.getWriter().print(calculateWithR.getZipFile());
             }catch(NullPointerException e){
                 System.out.println("error servlet: " + e);
             }
@@ -111,7 +103,7 @@ public class FileUploadServlet extends HttpServlet {
             //results will be send here 
 //            response.getWriter().print(calculateWithR.getResults());
 
-//            response.getWriter().print(tmp_dir);
+            
 
     }
 
