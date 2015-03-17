@@ -44,31 +44,33 @@
                                 <br style="clear:both" />
                                 
                                 
-                            <div id='accordion'>
-                                <h3>Upload file(s)</h3>
-                                <div>
-                                    <form>
-                                        Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
-                                        <br style="clear:both" /> 
-                                     </form>
-                                </div> 
-                                <h3>Options</h3>
-                                <div>
-                                    <p>Example of advanced options!!! Need to change later on</p>
-                                    <form id="advancedForm">
-                                        <input class="option" type="checkbox" name="rFunction" value="Default">Default (Done)<br /> 
-                                        <input class="option" type="checkbox" name="rFunction" value="Advanced">Advanced (Working on)<br />
-                                        <label class="advanced">Bins:</label> <input class="advanced" type="number" name="bins" value="800"><br />
-                                        <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="uMaxT" value="30"><br />
-                                        <label class="advanced">Multivariate max time: </label> <input class="advanced" type="number" name="mMaxT" value="300"><br />
-                                        <input type="hidden" id="tempDir" value="" />
-                                    </form>
-                                </div> 
-                                 <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
-                            </div>
-                                
+                            <div id="options">
 
-                            <div id="resultsDiv"></div>
+                                       
+                                            <h3>Upload file(s)</h3>
+                                            <div>
+                                                <form>
+                                                    Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
+                                                    <br style="clear:both" /> 
+                                                 </form>
+                                            </div> 
+                                            <div>
+                                                <p>Example of advanced options!!! Need to change later on</p>
+                                                <form id="advancedForm">
+                                                    <input class="option" type="checkbox" name="rFunction" value="Default">Default (Done)<br /> 
+                                                    <input class="option" type="checkbox" name="rFunction" value="Advanced">Advanced (Working on)<br />
+                                                    <label class="advanced">Bins:</label> <input class="advanced" type="number" name="bins" value="800"><br />
+                                                    <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="uMaxT" value="30"><br />
+                                                    <label class="XtraAdvanced">Multivariate max time: </label> <input class="advanced" type="number" name="mMaxT" value="300"><br />
+                                                    <input type="hidden" id="tempDir" value="" />
+                                                </form>
+                                            </div> 
+                                             <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
+                                        
+
+                                 </div>
+                                
+                                <div id="resultsTest"></div>
 
                                 
                                 

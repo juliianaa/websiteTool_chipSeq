@@ -1,23 +1,14 @@
 package eriba.jwlgoh.webServlets;
 
-import eriba.jwlgoh.JavaRIntegration.JavaRIntegration;
-import eriba.jwlgoh.JavaRIntegration.createTempDir;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import eriba.jwlgoh.JavaRIntegration.*;
+import java.io.*;
+import java.util.*;
+import java.util.logging.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -85,7 +76,7 @@ public class FileUploadServlet extends HttpServlet {
             } catch (Exception ex) {
             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+            String zipFile = "";
             args.put("pathToTempDir", tmp_dir);
             args.put("advancedOptions", checkedFunctions);
 
@@ -95,14 +86,19 @@ public class FileUploadServlet extends HttpServlet {
                 System.out.println("call Java R integration START OF PROGRAM");
                 JavaRIntegration calculateWithR = new JavaRIntegration();
                 calculateWithR.start(args);
-                response.getWriter().print(calculateWithR.getZipFile());
+                
+                
+                zipFile = calculateWithR.getZipFile();
+                
+                response.getWriter().print(zipFile);
+//                
             }catch(NullPointerException e){
                 System.out.println("error servlet: " + e);
             }
             
             //results will be send here 
 //            response.getWriter().print(calculateWithR.getResults());
-
+//            request.setAttribute("result", zipFile);
             
 
     }

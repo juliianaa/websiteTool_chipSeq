@@ -5,13 +5,23 @@
  */
 
 $(document).ready(function(){
+    
+    var sampleFile = document.getElementById("sampleFile").files;
+
     $(".advanced").hide(); 
+    $(".XtraAdvanced").hide(); 
     $(".option").change(function(){
         $(".option").not(this).prop("disabled", this.checked);
-        if($(this).val() === "Advanced"){
-           $(".advanced").show(); 
+        if($(this).val() === "Advanced" && sampleFile.length === 1){
+            $(".advanced").show();
         }else{
-            $(".advanced").hide(); 
+            if($(this).val() === "Advanced"){
+               $(".advanced").show();
+               $(".XtraAdvanced").show();           
+            }else{
+                $(".advanced").hide(); 
+                $(".XtraAdvanced").hide(); 
+            }
         }
     });    
 });

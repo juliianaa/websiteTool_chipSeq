@@ -49,8 +49,22 @@ function performAjaxUpload() {
       contentType: false,
       type: 'POST',
       success: function(data){
-        $('#accordion').hide();
-        $('#resultsDiv').html("<a href="+data+" download>zipFile</a>");
-      }
+        $('#options').hide();
+        
+        var zipFormData = new FormData();
+        zipFormData.append("zipFile", data);
+        
+       $.ajax({
+            url: 'DownloadZipFileServlet',
+            data: zipFormData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(zipData){
+//                window.open(data);
+                alert(zipData);
+            }
+          });
+        }
     });
 }
