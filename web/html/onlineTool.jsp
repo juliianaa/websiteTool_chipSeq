@@ -71,8 +71,6 @@
                                  </div>
                                 
                                 <div id="resultsTest"></div>
-
-                                
                                 
                             </div>
                         </div>

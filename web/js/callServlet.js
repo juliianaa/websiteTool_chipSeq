@@ -38,33 +38,18 @@ function performAjaxUpload() {
     
     //adds the list of checked function
     formdata.append("rFunctions",checkbox_value);
-    
     formdata.append("argParams",arguments_value);
     
 
     $.ajax({
-      url: 'FileUploadServlet',
-      data: formdata,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      success: function(data){
-        $('#options').hide();
-        
-        var zipFormData = new FormData();
-        zipFormData.append("zipFile", data);
-        
-       $.ajax({
-            url: 'DownloadZipFileServlet',
-            data: zipFormData,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            success: function(zipData){
-//                window.open(data);
-                alert(zipData);
-            }
-          });
+        url: 'FileUploadServlet',
+        data: formdata,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+          $('#options').hide();
+          $('#resultsTest').html("<h3>Here is my image:</h3> <a href='DownloadZipFileServlet?zipPath="+data+"'>Download</a>");
         }
     });
 }

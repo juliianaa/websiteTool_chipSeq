@@ -86,11 +86,9 @@ public class FileUploadServlet extends HttpServlet {
                 System.out.println("call Java R integration START OF PROGRAM");
                 JavaRIntegration calculateWithR = new JavaRIntegration();
                 calculateWithR.start(args);
+
                 
-                
-                zipFile = calculateWithR.getZipFile();
-                
-                response.getWriter().print(zipFile);
+                response.getWriter().print(tmp_dir);
 //                
             }catch(NullPointerException e){
                 System.out.println("error servlet: " + e);

@@ -13,14 +13,14 @@
         <servlet-name>FileUploadServlet</servlet-name>
         <servlet-class>eriba.jwlgoh.webServlets.FileUploadServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DownloadZipFileServlet</servlet-name>
-        <servlet-class>eriba.jwlgoh.webServlets.DownloadZipFileServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>FileUploadServlet</servlet-name>
         <url-pattern>/FileUploadServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>DownloadZipFileServlet</servlet-name>
+        <servlet-class>eriba.jwlgoh.webServlets.DownloadZipFileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DownloadZipFileServlet</servlet-name>
         <url-pattern>/DownloadZipFileServlet</url-pattern>
