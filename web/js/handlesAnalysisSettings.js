@@ -6,6 +6,8 @@
 
 $(document).ready(function(){
     
+    $("#show").hide();
+    
     var sampleFile = document.getElementById("sampleFile").files;
 
     $(".advanced").hide(); 
@@ -25,3 +27,8 @@ $(document).ready(function(){
         }
     });    
 });
+
+function showAnlaysisSettings(){
+    $("#performButton").hide();
+    $("#show").show(); 
+}

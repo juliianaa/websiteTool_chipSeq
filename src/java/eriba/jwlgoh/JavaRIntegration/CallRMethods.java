@@ -10,13 +10,20 @@ import org.rosuda.JRI.Rengine;
 
 
 /**
+ * This class only has one method, which will be calling the method to make connection with R and
+ * gives the parameters to the function in the R-script.
  *
- * @author Eriba
+ * @author jwlgoh
  */
 public class CallRMethods {
+    
+    
     private final ConnectWithR r = new ConnectWithR();
+    
     /**
-     *
+     * Upon receiving the parameters, this method will be calling the function in the R-script 
+     * with the needed parameters for the calculations. 
+     * 
      * @param firstFunction
      * @param tmpDir
      * @param options
@@ -25,20 +32,27 @@ public class CallRMethods {
         
         System.out.println("call r methods program");
         
+        //Replace the slashes for back slashes as R only accepts paths with back slashes.
         String tmp_dir = tmpDir.replace("\\", "/");
         
-        //receive the R connection
+        //Receives the R connection
         Rengine re = r.rConnect();
         
         try{
-            //If it is a default then the default option will only be done
-            //else the advanced option will be done
+            //Checks which option the user has given for the calculations. 
             if (!(firstFunction.equals("Default")|firstFunction.equals(""))){
+                //Enters here when the user chose the Advanced option, this means that the user
+                //has changed a parameter setting to liking instead of using the default setting.
                 System.out.println("to advanced as default params are changed");
-                re.eval("inputOption('"+tmp_dir+"',"+options.get(0)+","+options.get(1)+","+options.get(2)+")");
+                
+                //How the parameters will be given to the R-script function
+                re.eval("inputOption('" + tmp_dir + "'," + options.get(0) + "," + options.get(1) +
+                        "," + options.get(2) + ")");
 
             }else{
                 
+                //Enters here when the user uses the Default option, which only the path of where
+                //the uploaded file(s) needs to be given to the function of the R-scipt.
                 System.out.println("default as no advanced options are given");
                 re.eval("inputOption('"+tmp_dir+"')");
             }
@@ -46,9 +60,8 @@ public class CallRMethods {
         }catch(NullPointerException e){
                 System.out.println("error call R methods: " + e);
         }
-        System.out.println("done with calculations");
-        r.stopRConnection();
         
+        System.out.println("done with calculations");
     }
   
 }
