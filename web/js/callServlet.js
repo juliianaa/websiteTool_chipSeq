@@ -41,7 +41,7 @@ function performAjaxUpload() {
     });
     
     var hidden_value = [];
-    $('form input[type="text"]').each(function () {
+    $('form input[type="hidden"]').each(function () {
         hidden_value.push($(this).val());
     });
 
@@ -59,11 +59,15 @@ function performAjaxUpload() {
         contentType: false,
         type: 'POST',
         success: function (data) {
-            $('#options').hide();
             NProgress.done();
-            $("#changeContent").load("html/results.jsp");
-            $('#resultsTest').html("<h3>Download the results:</h3> <a href='DownloadZipFileServlet?zipPath="+data+"'>Download</a>");
-            $("#temp_dir").val("data");        
+            
+            var values = data.split(",");
+            
+            $('#options').hide();
+            $('#resultsTest').show();
+            $('#downloadLink').html("<h3>Download results:</h3> <a href='DownloadZipFileServlet?zipPath="+values[0]+"'>Download</a>");
+            $(".tmpDirPath").val(values[0]);        
+            $(".numberOfAnalysis").val(values[1]);        
         }
     });
 }

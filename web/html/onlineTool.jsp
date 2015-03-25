@@ -27,10 +27,19 @@
                 <div id="content">
                     <div class="content_item">
                         <div class='about'>
+                            <div id="resultsTest">
+                                
+                                <p id="downloadLink"></p>
+                                
+                                <button id="performButton" onclick="showAnlaysisSettings()">Perform another analysis </button>
+                            </div>
+                            
+                            <br style="clear:both" />
+                            
                             <div id="changeContent">
                                 <%@include file="histonehmm.jsp" %>
                             </div>
-                        </div>
+                            
                     </div><!--close content_item-->	
                 </div><!--close content-->
                 </div><!--close site_content-->	

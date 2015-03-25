@@ -18,50 +18,30 @@ public class JavaRIntegration {
      * This method can be seen as the main method where all the needed information will be parsed and
      * send to the next method.
      *
-     * @param args
+     * @param tmpDir
+     * @param analysisOption
+     * @param settingsValues
+     * @param noa
      */
-    public void start(Map<String, Object> args){
+    public void start(String tmpDir,String analysisOption, ArrayList settingsValues, int noa){
         
         System.out.println("In program!");
        
-        //Gets the paths to where the files are saved
-        Object obj1 = args.get("pathToTempDir");
-        //Sets the object like an arraylist
-        String tmpDir = obj1.toString();
-        
-        //Receives the advanced options that the user gives
-        Object obj2 = args.get("advancedOptions");
-        //Sets the object like an ArrayList
-        ArrayList options = (ArrayList) obj2;
-
-        //Gets the option, which will be either empty(will change to default), Default or Advanced
-        String firstFunction = (String) options.get(0);
-        
-        //Gets the parameters of the R-package settings
-        String argsList = (String)options.get(1);
-        //The parameters are seen one string "800,30,300" with splitting on the "," all settings 
-        //can be retrieved for later.
-        List<String> sublist = new ArrayList<>(Arrays.asList(argsList.split(",")));
-        
-//        String hiddenList = (String)options.get(2);
-//        
-//        System.out.println(hiddenList + "length " + hiddenList.length());
-        
-        System.out.println(args);
-        
+   
         
        
-//        try{
-//            System.out.println("call R methods");
-//            
-//            // Tries to call the start function of the call methods
-//            CallRMethods call = new CallRMethods();
-//            call.runRFunctions(firstFunction, tmpDir, sublist);
-//               
-//        }catch(NullPointerException e){
-//                System.out.println("error integration: " + e);
-//            }
+        try{
+            System.out.println("call R methods");
+            
+            // Tries to call the start function of the call methods
+            CallRMethods call = new CallRMethods();
+            call.runRFunctions(tmpDir, analysisOption, settingsValues, noa);
+               
+        }catch(NullPointerException e){
+                System.out.println("error integration: " + e);
+            }
     }
+
 
  
     

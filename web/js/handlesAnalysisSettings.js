@@ -6,7 +6,8 @@
 
 $(document).ready(function(){
     
-    $("#show").hide();
+    $("#resultsTest").hide();
+    $("#performButton").show();
     
     var sampleFile = document.getElementById("sampleFile").files;
 
@@ -30,5 +31,6 @@ $(document).ready(function(){
 
 function showAnlaysisSettings(){
     $("#performButton").hide();
-    $("#show").show(); 
+    $("#options").show(); 
+    $("#sampleFile").hide(); 
 }

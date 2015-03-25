@@ -5,6 +5,7 @@
  */
 package eriba.jwlgoh.JavaRIntegration;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.Rengine;
 
@@ -24,11 +25,12 @@ public class CallRMethods {
      * Upon receiving the parameters, this method will be calling the function in the R-script 
      * with the needed parameters for the calculations. 
      * 
-     * @param firstFunction
+     * @param analysisOption
      * @param tmpDir
      * @param options
+     * @param noa
      */
-    public void runRFunctions(Object firstFunction, String tmpDir, List options) {
+    public void runRFunctions(String tmpDir,String analysisOption, ArrayList options, int noa) {
         
         System.out.println("call r methods program");
         
@@ -40,13 +42,13 @@ public class CallRMethods {
         
         try{
             //Checks which option the user has given for the calculations. 
-            if (!(firstFunction.equals("Default")|firstFunction.equals(""))){
+            if (!(analysisOption.equals("Default")|analysisOption.equals(""))){
                 //Enters here when the user chose the Advanced option, this means that the user
                 //has changed a parameter setting to liking instead of using the default setting.
                 System.out.println("to advanced as default params are changed");
                 
                 //How the parameters will be given to the R-script function
-                re.eval("inputOption('" + tmp_dir + "'," + options.get(0) + "," + options.get(1) +
+                re.eval("inputOption('" + tmp_dir + "'," + noa + "," + options.get(0) + "," + options.get(1) +
                         "," + options.get(2) + ")");
 
             }else{
@@ -54,7 +56,7 @@ public class CallRMethods {
                 //Enters here when the user uses the Default option, which only the path of where
                 //the uploaded file(s) needs to be given to the function of the R-scipt.
                 System.out.println("default as no advanced options are given");
-                re.eval("inputOption('"+tmp_dir+"')");
+                re.eval("inputOption('"+ tmp_dir + "'," + noa + "')");
             }
 
         }catch(NullPointerException e){

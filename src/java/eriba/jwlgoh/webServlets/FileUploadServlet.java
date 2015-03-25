@@ -1,5 +1,6 @@
 package eriba.jwlgoh.webServlets;
 
+import com.google.gson.Gson;
 import eriba.jwlgoh.JavaRIntegration.*;
 
 import java.io.*;
@@ -24,6 +25,7 @@ public class FileUploadServlet extends HttpServlet {
     * Constructs temporary directory path to store upload file
     **/
     private final String uploadPath = "C:\\Users\\Eriba\\Documents\\temp_chromstaR\\";
+    private String tmp_dir = null;
 
     /**
      * Upon receiving the files and parameters that contains the R-package settings upload submission. 
@@ -37,33 +39,69 @@ public class FileUploadServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+            HttpServletResponse response) throws ServletException, IOException, NumberFormatException{
             
-            String tmp_dir = null;
-            Map<String, Object> args = new HashMap<>();
-            ArrayList<String> checkedFunctions = new ArrayList<>();
+            String analysisOption = null;
+            ArrayList settingsValues = null;
+            int noa = 0;
 
             try {   
-                    //Saves the given parameters as from Ajax in a List as a FileItem.
-                    List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory())
-                            .parseRequest(request);
+                //Saves the given parameters as from Ajax in a List as a FileItem.
+                List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory())
+                        .parseRequest(request);
+
+                
+
+                //Checks if the given upload is not empty
+                if (items != null && items.size() > 0) {
                     
-                    //Calls the java class/method that creates the temporary directory to save the
-                    //uploaded file(s) from the client.
-                    createTempDir tmpDir = new createTempDir();
-                    tmp_dir = tmpDir.createDir(uploadPath);
+                    ArrayList<Object> checkedFunctions = new ArrayList<>();
+
+                    // iterates over the form fields
+                    for (FileItem itemFormField : items) {
+                        if (itemFormField.isFormField()){
+
+                            //Is not a File, all other parameters will be added to the ArrayList
+                            checkedFunctions.add(itemFormField.getString());
+                        }
+                    }
                     
-                    //Checks if the given upload is not empty
-                    if (items != null && items.size() > 0) {
-                         
-                        // iterates over the form fields
-                        for (FileItem item : items) {
+                    //Default or Advanced
+                    analysisOption = (String) checkedFunctions.get(0);
+                    
+                    //Settings for R-package
+                    String settings = (String) checkedFunctions.get(1);
+                    settingsValues = new ArrayList<>(Arrays.asList(settings.split(",")));
+                    
+                    //Settings for 2nd analysis
+                    String secondAnalysisValue = (String) checkedFunctions.get(2);
+                    ArrayList secondAnalysisList = new ArrayList<>(Arrays.asList(secondAnalysisValue.split(",")));
+                    
+                    //number of analysis
+                    String x = (String) secondAnalysisList.get(0);
+                    
+                    noa = noa + Integer.parseInt(x);
+                    
+                    //Path to the file where the previous files are for a second analysis run
+                    String secAnalysis = (String) secondAnalysisList.get(1);
+                    
+                    
+                    if (secAnalysis.equals("none")){
                         
+                       
+                        
+                        //Calls the java class/method that creates the temporary directory to save the
+                        //uploaded file(s) from the client.
+                        createTempDir tmpDir = new createTempDir();
+                        tmp_dir = tmpDir.createDir(uploadPath);
+                        
+                        // iterates over the not form fields
+                        for (FileItem item : items) {
                             if (!item.isFormField()) {
                                 //If item is a file, it will not be seen as a FormField.
                                 //Gets the name of the uploaded file(s)
                                 String fileName = new File(item.getName()).getName();
-                                
+
                                 //Saves the file in the temporary directory that was created
                                 String filePath = tmp_dir + File.separator + fileName;
                                 File storeFile = new File(filePath);
@@ -71,31 +109,37 @@ public class FileUploadServlet extends HttpServlet {
                                 // saves the file on disk
                                 item.write(storeFile);
 
-                            }if (item.isFormField()){
-                                //Is not a File, all other parameters will be added to the ArrayList
-                                checkedFunctions.add(item.getString());
                             }
                         }
+                    }else{
+                        tmp_dir = secAnalysis;
                     }
+                }
             } catch (Exception ex) {
                 Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             //the parsed information will be put into a Map with the key name and the associated value
-            args.put("pathToTempDir", tmp_dir);
-            args.put("advancedOptions", checkedFunctions);
 
-            System.out.println(args);
             
             try{
                 //Tries to call the class/method JavaRIntegration and gives the Map.
                 System.out.println("call Java R integration START OF PROGRAM");
-                JavaRIntegration calculateWithR = new JavaRIntegration();
-                calculateWithR.start(args);
+                System.out.println(tmp_dir + " " + analysisOption + " " + settingsValues + " " + noa); 
+               
                 
+                JavaRIntegration calculateWithR = new JavaRIntegration();
+                calculateWithR.start(tmp_dir, analysisOption, settingsValues, noa);
+                           
+                
+                noa = noa + 1;
+                
+                String args = tmp_dir +","+noa;
+
                 //gives back a response, where the tmp_dir will be given for compressing files to zip
                 //in the DownloadZipFileServlet
-                response.getWriter().print(tmp_dir);
+                response.getWriter().print(args);
+                
                 
             }catch(NullPointerException e){
                 System.out.println("error servlet: " + e);

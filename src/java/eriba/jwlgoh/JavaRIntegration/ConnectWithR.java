@@ -14,7 +14,7 @@ import org.rosuda.JRI.Rengine;
  * @author jwlgoh
  */
 public class ConnectWithR {
-    private Rengine re;
+    private Rengine re = Rengine.getMainEngine();
 
     /**
      * Creates a new R engine which is the bridge between Java and R.
@@ -23,10 +23,12 @@ public class ConnectWithR {
      */
     public Rengine rConnect() {
         
-        //new R engine
-//        String[] engineArgs = new String[1];
-//        engineArgs [0] = "–vanilla";
-        re=new Rengine (null, true, null);
+        if(re == null){
+            //new R engine
+            String rAgs[] = new String[10];
+            rAgs [0] = "–vanilla";
+            re = new Rengine(rAgs, false, null);
+        }
         
         // Sets the library trees where the needed packages can be found
         re.eval(".libPaths(\"C:/Users/Eriba/Documents/R/win-library/3.1\")");
@@ -43,7 +45,7 @@ public class ConnectWithR {
             System.exit(1);
         }
         
-        //Retyrns the connection with R 
+        //Returns the connection with R 
         return re;
     }
 }

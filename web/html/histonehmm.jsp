@@ -39,17 +39,17 @@
         <div>
             <p>Example of advanced options!!! Need to change later on</p>
             <form id="advancedForm">
-                <input class="option" type="checkbox" name="rFunction" value="Default">Default (Done)<br /> 
-                <input class="option" type="checkbox" name="rFunction" value="Advanced">Advanced (Working on)<br />
-                <label class="advanced">Bins:</label> <input class="advanced" type="number" name="bins" value="800"><br />
-                <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="uMaxT" value="30"><br />
-                <label class="XtraAdvanced">Multivariate max time: </label> <input class="XtraAdvanced" type="number" name="mMaxT" value="300"><br />
-                <input id="numberOfAnalysis" type="hidden" value="1"><br />
-                <input id="tmpDirPath" type="hidden" value="none"><br />
+                <input class="option" type="checkbox" name="defaultOption" value="Default">Default (Done)<br /> 
+                <input class="option" type="checkbox" name="advancedOption" value="Advanced">Advanced (Working on)<br />
+                <label class="advanced">Bins:</label> <input class="advanced" type="number" name="rFunctions[]" value="800"><br />
+                <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="rFunctions[]" value="30"><br />
+                <label class="XtraAdvanced">Multivariate max time: </label> <input class="XtraAdvanced" type="number" name="rFunctions[]" value="300"><br />
+                <input class="numberOfAnalysis" name="hiddenValue" type="hidden" value="1"><br />
+                <input class="tmpDirPath" name="hiddenValue" type="hidden" value="none"><br />
             </form>
         </div> 
-        <input id="uploadBtn" type="button" value="Submit" onClick="performAjaxUpload();">
-
+        
+        <button id="uploadBtn" onClick="performAjaxUpload()">Run analysis</button>
 
      </div>
 </div>
