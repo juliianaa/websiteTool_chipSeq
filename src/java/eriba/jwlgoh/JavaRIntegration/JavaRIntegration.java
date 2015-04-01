@@ -5,6 +5,7 @@
  */
 package eriba.jwlgoh.JavaRIntegration;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -15,34 +16,53 @@ import java.util.*;
  */
 public class JavaRIntegration {
     /**
-     * This method can be seen as the main method where all the needed information will be parsed and
-     * send to the next method.
+     * This method can be seen as the main method where the needed method will be send to the next 
+     * method with the needed values to retrieve the results.
      *
-     * @param tmpDir
-     * @param analysisOption
-     * @param settingsValues
+     * @param user_dir
+     * @param tmp_dir
+     * @param fileNames
+     * @param checkedFunctions
      * @param noa
+     * @return 
      */
-    public void start(String tmpDir,String analysisOption, ArrayList settingsValues, int noa){
+    public String start(String user_dir, String tmp_dir, ArrayList<String> fileNames, ArrayList<Object> checkedFunctions, int noa){
         
         System.out.println("In program!");
        
-   
+        String args = null;
         
-       
         try{
             System.out.println("call R methods");
             
             // Tries to call the start function of the call methods
             CallRMethods call = new CallRMethods();
-            call.runRFunctions(tmpDir, analysisOption, settingsValues, noa);
+            
+            //Default or Advanced
+            String analysisOption = (String) checkedFunctions.get(0);
+
+            //Settings for R-package
+            String settings = (String) checkedFunctions.get(1);
+            ArrayList<String> settingsValues = new ArrayList<>(Arrays.asList(settings.split(",")));
+            
+            String resultsDirName = File.separator + "analysis_" + noa;
+            
+            String analysisResultsDir = user_dir + resultsDirName;
+            
+            call.runRFunctions(tmp_dir, analysisOption, settingsValues, analysisResultsDir);
+            
+            WriteToFile wf = new WriteToFile();
+            wf.writeToTxt(analysisResultsDir, resultsDirName, settingsValues, fileNames, noa);
+                    
+                    
+            //sets with the needed information into a String format for later use if the user
+            //wishes to do another analysis with the files but, with different settings.
+            args = user_dir+","+tmp_dir +","+(noa + 1);
                
         }catch(NullPointerException e){
                 System.out.println("error integration: " + e);
             }
+        return args;
     }
 
-
- 
-    
 }

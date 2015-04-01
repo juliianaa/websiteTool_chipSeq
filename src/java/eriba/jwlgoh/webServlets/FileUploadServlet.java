@@ -26,6 +26,7 @@ public class FileUploadServlet extends HttpServlet {
     **/
     private final String uploadPath = "C:\\Users\\Eriba\\Documents\\temp_chromstaR\\";
     private String tmp_dir = null;
+    private String user_dir = null;
 
     /**
      * Upon receiving the files and parameters that contains the R-package settings upload submission. 
@@ -41,21 +42,20 @@ public class FileUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, NumberFormatException{
             
-            String analysisOption = null;
-            ArrayList settingsValues = null;
+            ArrayList<Object> checkedFunctions = new ArrayList<>();
+            ArrayList<String> fileName = new ArrayList<>();
             int noa = 0;
 
-            try {   
+            try {
+
                 //Saves the given parameters as from Ajax in a List as a FileItem.
                 List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory())
                         .parseRequest(request);
 
-                
-
                 //Checks if the given upload is not empty
                 if (items != null && items.size() > 0) {
                     
-                    ArrayList<Object> checkedFunctions = new ArrayList<>();
+                    
 
                     // iterates over the form fields
                     for (FileItem itemFormField : items) {
@@ -65,13 +65,6 @@ public class FileUploadServlet extends HttpServlet {
                             checkedFunctions.add(itemFormField.getString());
                         }
                     }
-                    
-                    //Default or Advanced
-                    analysisOption = (String) checkedFunctions.get(0);
-                    
-                    //Settings for R-package
-                    String settings = (String) checkedFunctions.get(1);
-                    settingsValues = new ArrayList<>(Arrays.asList(settings.split(",")));
                     
                     //Settings for 2nd analysis
                     String secondAnalysisValue = (String) checkedFunctions.get(2);
@@ -88,19 +81,23 @@ public class FileUploadServlet extends HttpServlet {
                     
                     if (secAnalysis.equals("none")){
                         
-                       
+                        createTempDir tmpDir = new createTempDir();
+                        
+                        user_dir = tmpDir.createDir(uploadPath, "User_");
                         
                         //Calls the java class/method that creates the temporary directory to save the
                         //uploaded file(s) from the client.
-                        createTempDir tmpDir = new createTempDir();
-                        tmp_dir = tmpDir.createDir(uploadPath);
+                        tmp_dir = tmpDir.createDir(user_dir, "User_files_");
                         
                         // iterates over the not form fields
                         for (FileItem item : items) {
                             if (!item.isFormField()) {
                                 //If item is a file, it will not be seen as a FormField.
                                 //Gets the name of the uploaded file(s)
-                                String fileName = new File(item.getName()).getName();
+                                String fileNameUserInput = new File(item.getName()).getName();
+                                
+                                fileName.add(fileNameUserInput);
+                                
 
                                 //Saves the file in the temporary directory that was created
                                 String filePath = tmp_dir + File.separator + fileName;
@@ -125,16 +122,11 @@ public class FileUploadServlet extends HttpServlet {
             try{
                 //Tries to call the class/method JavaRIntegration and gives the Map.
                 System.out.println("call Java R integration START OF PROGRAM");
-                System.out.println(tmp_dir + " " + analysisOption + " " + settingsValues + " " + noa); 
-               
-                
+  
                 JavaRIntegration calculateWithR = new JavaRIntegration();
-                calculateWithR.start(tmp_dir, analysisOption, settingsValues, noa);
-                           
+                String args = calculateWithR.start(user_dir, tmp_dir, fileName, checkedFunctions, noa);
                 
-                noa = noa + 1;
                 
-                String args = tmp_dir +","+noa;
 
                 //gives back a response, where the tmp_dir will be given for compressing files to zip
                 //in the DownloadZipFileServlet
