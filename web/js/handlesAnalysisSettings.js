@@ -7,7 +7,7 @@
 $(document).ready(function(){
     
     $("#resultsTest").hide();
-    $("#performButton").show();
+    $("#performButton").hide();
     
     var sampleFile = document.getElementById("sampleFile").files;
 

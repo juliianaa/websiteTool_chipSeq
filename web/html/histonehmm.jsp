@@ -32,7 +32,7 @@
         <h3>Upload file(s)</h3>
         <div>
             <form>
-                Upload File: <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
+                <label class="sampleFile">Upload File:</label> <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
                 <br style="clear:both" /> 
              </form>
         </div> 

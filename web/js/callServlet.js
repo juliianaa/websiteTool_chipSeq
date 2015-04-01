@@ -66,8 +66,10 @@ function performAjaxUpload() {
             $('#options').hide();
             $('#resultsTest').show();
             $('#downloadLink').html("<h3>Download results:</h3> <a href='DownloadZipFileServlet?zipPath="+values[0]+"'>Download</a>");
-            $(".tmpDirPath").val(values[0]);        
-            $(".numberOfAnalysis").val(values[1]);        
+            $(".tmpDirPath").val(values[1]);        
+            $(".numberOfAnalysis").val(values[2]);
+            $("#performButton").show();
+            
         }
     });
 }

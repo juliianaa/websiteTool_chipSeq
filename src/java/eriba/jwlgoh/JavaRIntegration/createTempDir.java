@@ -20,20 +20,20 @@ public class createTempDir {
     /**
      * Creates an temporary directory where the uploaded files of the client will be saved
      *
-     * @param uploadPath
+     * @param path
+     * @param tmp_dir_prefix
      * @return path of temporary directory
      * @throws IOException
      */
-    public String createDir(String uploadPath) throws IOException {
+    public String createDir(String path, String tmp_dir_prefix) throws IOException {
         
         //throw a check if File is a BED or BAM
         //If YES -> make temporary directory and let it save on disk 
         //NO -> then give message that fil is wrong and cannot be used
         
         //Gets the path of where the temporary directory will be saved
-        final Path basedir = FileSystems.getDefault().getPath(uploadPath);
+        final Path basedir = FileSystems.getDefault().getPath(path);
         //How the temporary directory name will start
-        final String tmp_dir_prefix = "HistoneHMM_";
         //Creates the temporary directory in the given path with the name of the directory.
         final Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);
         
