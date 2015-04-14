@@ -6,7 +6,6 @@
 package eriba.jwlgoh.JavaRIntegration;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.rosuda.JRI.Rengine;
 
 
@@ -30,7 +29,7 @@ public class CallRMethods {
      * @param options
      * @param analysisDir
      */
-    public void runRFunctions(String tmpDir,String analysisOption, ArrayList options, String analysisDir) {
+    public void runRFunction(String tmpDir,String analysisOption, ArrayList options, String analysisDir) {
         
         System.out.println("call r methods program");
         
@@ -53,9 +52,6 @@ public class CallRMethods {
                 //How the parameters will be given to the R-script function
                 re.eval("inputOption('" + tmp_dir + "','" + noa + "'," + options.get(0) + "," + options.get(1) +
                         "," + options.get(2) + ")");
-
-                System.out.println("inputOption('" + tmp_dir + "','" + noa + "'," + options.get(0) + 
-                        "," + options.get(1) + "," + options.get(2) + ")");
 
             }else{
 

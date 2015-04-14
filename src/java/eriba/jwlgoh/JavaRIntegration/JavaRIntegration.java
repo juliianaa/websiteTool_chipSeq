@@ -49,7 +49,7 @@ public class JavaRIntegration {
             
             String analysisResultsDir = user_dir + resultsDirName;
             
-            call.runRFunctions(tmp_dir, analysisOption, settingsValues, analysisResultsDir);
+            call.runRFunction(tmp_dir, analysisOption, settingsValues, analysisResultsDir);
             
             WriteToFile wf = new WriteToFile();
             wf.writeToTxt(analysisResultsDir, resultsDirName, settingsValues, fileNames, noa);

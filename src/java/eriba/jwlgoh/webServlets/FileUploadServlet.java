@@ -125,8 +125,6 @@ public class FileUploadServlet extends HttpServlet {
   
                 JavaRIntegration calculateWithR = new JavaRIntegration();
                 String args = calculateWithR.start(user_dir, tmp_dir, fileName, checkedFunctions, noa);
-                
-                
 
                 //gives back a response, where the tmp_dir will be given for compressing files to zip
                 //in the DownloadZipFileServlet

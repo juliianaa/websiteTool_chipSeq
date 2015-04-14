@@ -28,17 +28,13 @@ public class WriteToFile {
      */
     public void writeToTxt(String analysisResultsDir,  String resultsDirName, ArrayList<String> settings, ArrayList<String> fileNames, int noa) { 
         
-        String bins = settings.get(0);
-        String uMax = settings.get(1);
-        String mMax = settings.get(2);
-        
         try {
             
             String firstSentence = "You gave the following file for analysis number " + noa + ": \n \n";
             
-            String Secondcontent = "\n Used the settings of: \n \n Bins: " + bins + 
-                    " \n Univariate time maximum: " + uMax 
-                    + " \n Multivariate time maximum: " + mMax;
+            String Secondcontent = "\n Used the settings of: \n \n Bins: " + settings.get(0) + 
+                    " \n Univariate maximum time: " + settings.get(1) 
+                    + " \n Multivariate maximum time: " + settings.get(2);
  
             File file = new File(analysisResultsDir + resultsDirName + "_settings.txt");
 
@@ -71,8 +67,6 @@ public class WriteToFile {
             bw.write(Secondcontent);
             bw.close();
 
-            System.out.println("Done");
-           
         } catch (IOException e) {
             System.out.println("error writing to file: " + e);
         }
