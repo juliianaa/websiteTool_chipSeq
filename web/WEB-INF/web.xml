@@ -4,6 +4,10 @@
         <param-name>base_url</param-name>
         <param-value>http://localhost:8080/webApplication_eriba/</param-value>
     </context-param>
+    <servlet-mapping>
+        <servlet-name>GenerateRScript</servlet-name>
+        <url-pattern>/GenerateRScript</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -12,6 +16,10 @@
     <servlet>
         <servlet-name>FileUploadServlet</servlet-name>
         <servlet-class>eriba.jwlgoh.webServlets.FileUploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GenerateRScript</servlet-name>
+        <servlet-class>eriba.jwlgoh.webServlets.GenerateRScript</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FileUploadServlet</servlet-name>

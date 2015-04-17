@@ -1,6 +1,5 @@
 package eriba.jwlgoh.webServlets;
 
-import com.google.gson.Gson;
 import eriba.jwlgoh.JavaRIntegration.*;
 
 import java.io.*;
@@ -55,8 +54,6 @@ public class FileUploadServlet extends HttpServlet {
                 //Checks if the given upload is not empty
                 if (items != null && items.size() > 0) {
                     
-                    
-
                     // iterates over the form fields
                     for (FileItem itemFormField : items) {
                         if (itemFormField.isFormField()){
@@ -81,7 +78,7 @@ public class FileUploadServlet extends HttpServlet {
                     
                     if (secAnalysis.equals("none")){
                         
-                        createTempDir tmpDir = new createTempDir();
+                        CreateTempDir tmpDir = new CreateTempDir();
                         
                         user_dir = tmpDir.createDir(uploadPath, "User_");
                         

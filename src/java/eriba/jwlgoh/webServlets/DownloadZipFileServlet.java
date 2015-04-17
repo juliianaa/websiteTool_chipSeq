@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 import java.util.zip.*;
+import org.apache.commons.io.FileUtils;
  
 /**
  *  A JavaServlet implementation class DownloadZipFileServlet
@@ -59,6 +60,24 @@ public class DownloadZipFileServlet extends HttpServlet {
             sos.write(zip);
             sos.flush();
             
+            
+            //path of the root temp directory
+            String dir = "C:\\Users\\Eriba\\Documents\\temp_chromstaR";
+            File tmp_dir = new File(dir);
+            
+            //Gets the date of the last modified directory
+            long dirDate = tmp_dir.lastModified();
+            //int number of two days
+            int twoDays = (2*24*60*60*1000);
+            
+            //Deletes directories in root of tempDir if they are older than 2 days.
+            if (dirDate > twoDays){
+                FileUtils.deleteDirectory(tmp_dir);
+            }
+            
+            //Deletes the downloaded directory
+            FileUtils.deleteDirectory(directory);
+   
             
         }catch (IOException e) {
             System.out.println(e);

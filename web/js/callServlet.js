@@ -7,8 +7,6 @@
  *   
  */
 
-
-
 function performAjaxUpload() {
     
     NProgress.start();
@@ -69,6 +67,43 @@ function performAjaxUpload() {
             $(".tmpDirPath").val(values[1]);        
             $(".numberOfAnalysis").val(values[2]);
             $("#performButton").show();
+            
+        }
+    });
+      
+}
+
+function performGeneratingScript() {
+
+    NProgress.start();
+
+    var formData = new FormData();
+    
+    //gets the files that were given by the user
+    var pathToFile = document.getElementById("pathToFiles").value;
+    
+    var arguments_values = [];
+    $('form input[type="number"]').each(function () {
+        arguments_values.push($(this).val());
+    });  
+    
+    formData.append("pathToFile", pathToFile);
+    formData.append("argParams", arguments_values);
+
+    
+    NProgress.inc();
+
+    $.ajax({
+        url: 'GenerateRScript',
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function (data) {
+            NProgress.done();
+            $('#settings').hide();
+            $("#textArea").show();
+            $('#rScript').html(data);
             
         }
     });

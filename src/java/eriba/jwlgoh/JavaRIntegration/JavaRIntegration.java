@@ -51,7 +51,7 @@ public class JavaRIntegration {
             
             call.runRFunction(tmp_dir, analysisOption, settingsValues, analysisResultsDir);
             
-            WriteToFile wf = new WriteToFile();
+            ExportResults wf = new ExportResults();
             wf.writeToTxt(analysisResultsDir, resultsDirName, settingsValues, fileNames, noa);
                     
                     

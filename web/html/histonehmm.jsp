@@ -24,7 +24,11 @@
         magna, aliquam lobortis nibh dictum eget. 
     </p>
     <br style="clear:both" />
-
+    
+    <a href="html/generateRscript.jsp">Generate R script</a>
+    
+    <br style="clear:both" />
+    <br style="clear:both" />
 
     <div id="options">
 
@@ -39,8 +43,8 @@
         <div>
             <p>Example of advanced options!!! Need to change later on</p>
             <form id="advancedForm">
-                <input class="option" type="checkbox" name="defaultOption" value="Default">Default (Done)<br /> 
-                <input class="option" type="checkbox" name="advancedOption" value="Advanced">Advanced (Working on)<br />
+                <input class="option" type="checkbox" name="defaultOption" value="Default">Default<br /> 
+                <input class="option" type="checkbox" name="advancedOption" value="Advanced">Advanced<br />
                 <label class="advanced">Bins:</label> <input class="advanced" type="number" name="rFunctions[]" value="800"><br />
                 <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="rFunctions[]" value="30"><br />
                 <label class="XtraAdvanced">Multivariate max time: </label> <input class="XtraAdvanced" type="number" name="rFunctions[]" value="300"><br />
