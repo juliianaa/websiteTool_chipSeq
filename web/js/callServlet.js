@@ -68,6 +68,9 @@ function performAjaxUpload() {
             $(".numberOfAnalysis").val(values[2]);
             $("#performButton").show();
             
+        },
+        fail: function(jqXHR, textStatus){
+            alert( "Anlaysis failed: " + textStatus );
         }
     });
       

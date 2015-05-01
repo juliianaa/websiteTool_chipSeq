@@ -19,7 +19,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Eriba
  */
-public class GenerateRScript extends HttpServlet {
+public class GenerateRScriptServlet extends HttpServlet {
 
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -82,7 +82,7 @@ public class GenerateRScript extends HttpServlet {
             
             
         } catch (FileUploadException ex) {
-            Logger.getLogger(GenerateRScript.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerateRScriptServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         response.getWriter().print(rScript);
