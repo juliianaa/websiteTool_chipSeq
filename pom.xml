@@ -5,6 +5,9 @@
 	<artifactId>chromstar</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<pluginManagement>
 			<plugins>
