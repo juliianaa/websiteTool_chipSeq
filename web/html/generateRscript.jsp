@@ -8,16 +8,14 @@
 <!DOCTYPE html>
 <html>
      <head>
-        <base href="${initParam.base_url}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Eriba</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link href="css/nprogress.css" rel="stylesheet" type="text/css"/>
-        <script src="js/jquery.js" type="text/javascript"></script>
-        <script src="js/jquery-ui.js" type="text/javascript"></script>
-        <script src="js/callServlet.js" type="text/javascript"></script>
-        <script src="js/nprogress.js" type="text/javascript"></script>
-        <script src="js/copyToClipboard.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <link href="../css/nprogress.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/jquery.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../js/callServlet.js" type="text/javascript"></script>
+        <script src="../js/nprogress.js" type="text/javascript"></script>
     </head>
         <body>
         <div id="main">

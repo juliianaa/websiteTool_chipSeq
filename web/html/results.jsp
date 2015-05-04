@@ -5,8 +5,8 @@
 --%>
 
 <div id="changeContent">
-    <script src="js/callServlet.js" type="text/javascript"></script>
-    <script src="js/handlesAnalysisSettings.js" type="text/javascript"></script>
+    <script src="../js/callServlet.js" type="text/javascript"></script>
+    <script src="../js/handlesAnalysisSettings.js" type="text/javascript"></script>
 
     <p>
         Perform another analysis on the same files but with different settings.

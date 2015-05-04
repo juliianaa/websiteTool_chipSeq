@@ -8,10 +8,9 @@
 <!DOCTYPE html>
 <html>
      <head>
-        <base href="${initParam.base_url}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Eriba</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
     </head>
 
         <body>
@@ -21,7 +20,7 @@
                     <div class="content_item">
                         <div class='about'>
                             <h1>Sample Graphics</h1>
-                            <div style="width:200px; float:left; padding: 0px 20px 10px 0px;"><img alt="image" src="img/image.jpg" /></div>
+                            <div style="width:200px; float:left; padding: 0px 20px 10px 0px;"><img alt="image" src="../img/image.jpg" /></div>
                             <p>
                                Lorem ipsum dolor sit amet, consectetur adipiscing 
                                 elit. Sed quis enim fringilla, efficitur sem at, 
@@ -37,7 +36,7 @@
                             </p>
                             <br style="clear:both" />
 
-                            <div style="width:200px; float:left; padding: 0px 20px 10px 0px;"><img alt="image" src="img/image.jpg" /></div>
+                            <div style="width:200px; float:left; padding: 0px 20px 10px 0px;"><img alt="image" src="../img/image.jpg" /></div>
                             <p>
                                Lorem ipsum dolor sit amet, consectetur adipiscing 
                                 elit. Sed quis enim fringilla, efficitur sem at, 

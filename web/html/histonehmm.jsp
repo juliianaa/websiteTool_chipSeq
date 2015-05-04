@@ -5,8 +5,8 @@
 --%>
 
 <div id="changeContent" >
-    <script src="js/callServlet.js" type="text/javascript"></script>
-    <script src="js/handlesAnalysisSettings.js" type="text/javascript"></script>
+    <script src="../js/callServlet.js" type="text/javascript"></script>
+    <script src="../js/handlesAnalysisSettings.js" type="text/javascript"></script>
     
     <h1>Tool</h1>
 
@@ -25,7 +25,7 @@
     </p>
     <br style="clear:both" />
     
-    <a href="html/generateRscript.jsp">Generate R script</a>
+    <a href="generateRscript.jsp">Generate R script</a>
     
     <br style="clear:both" />
     <br style="clear:both" />
