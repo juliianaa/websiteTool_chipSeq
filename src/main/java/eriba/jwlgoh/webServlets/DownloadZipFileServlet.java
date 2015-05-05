@@ -62,7 +62,7 @@ public class DownloadZipFileServlet extends HttpServlet {
             
             
             //path of the root temp directory
-            String dir = "C:\\Users\\Eriba\\Documents\\temp_chromstaR";
+            String dir = "/srv/molgenis/temp_chromstaR";
             File tmp_dir = new File(dir);
             
             //Gets the date of the last modified directory

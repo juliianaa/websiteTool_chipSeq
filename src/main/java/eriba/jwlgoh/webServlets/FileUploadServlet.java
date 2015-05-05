@@ -23,7 +23,7 @@ public class FileUploadServlet extends HttpServlet {
     /**
     * Constructs temporary directory path to store upload file
     **/
-    private final String uploadPath = "C:\\Users\\Eriba\\Documents\\temp_chromstaR\\";
+    private final String uploadPath = "/srv/molgenis/temp_chromstaR/";
     private String tmp_dir = null;
     private String user_dir = null;
 

@@ -42,13 +42,13 @@ public class ConnectWithR {
             re = new Rengine(rAgs, false, null);
             
             // Sets the library trees where the needed packages can be found
-            re.eval(".libPaths(\"C:/Users/Eriba/Documents/R/win-library/3.1\")");
+            re.eval(".libPaths('/srv/molgenis/R/x86_64-redhat-linux-gnu-library/3.1')");
             // Calls the needed packages
             re.eval("library(rJava)");
             re.eval("library(chromstaR)");
 
             // Calls the script where all the calculations will be made
-            re.eval("source('C:/Users/Eriba/Documents/chromstaR_0.9/callChromstaROptions.R')");
+            re.eval("source('/srv/molgenis/rScript/callChromstaROptions.R')");
             
             if(! re.waitForR()){
                 //Can't make connection with R, program will be stopped immediately
