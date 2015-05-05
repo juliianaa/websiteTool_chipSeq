@@ -51,7 +51,7 @@ function performAjaxUpload() {
     NProgress.inc();
 
     $.ajax({
-        url: 'FileUploadServlet',
+        url: '../FileUploadServlet',
         data: formdata,
         processData: false,
         contentType: false,
@@ -63,7 +63,7 @@ function performAjaxUpload() {
             
             $('#options').hide();
             $('#resultsTest').show();
-            $('#downloadLink').html("<h3>Download results:</h3> <a href='DownloadZipFileServlet?zipPath="+values[0]+"'>Download</a>");
+            $('#downloadLink').html("<h3>Download results:</h3> <a href='../DownloadZipFileServlet?zipPath="+values[0]+"'>Download</a>");
             $(".tmpDirPath").val(values[1]);        
             $(".numberOfAnalysis").val(values[2]);
             $("#performButton").show();
