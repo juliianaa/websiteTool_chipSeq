@@ -12,7 +12,8 @@
         <title>Eriba</title>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <link href="../css/nprogress.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquery.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="../js/jquery-ui.js" type="text/javascript"></script>
         <script src="../js/callServlet.js" type="text/javascript"></script>
         <script src="../js/accordion.js" type="text/javascript"></script>
@@ -28,9 +29,18 @@
                         <div class='about'>
                             <div id="resultsTest">
                                 
-                                <p id="downloadLink"></p>
+                                <p id="download"></p>
                                 
                                 <button id="performButton" onclick="showAnlaysisSettings()">Perform another analysis </button>
+                                
+                                
+<!--                                <p id="test">
+                                    <form>
+                                        <input type="hidden" id='downloadLink' name="downloadResults" value="downloadPath"><br>
+                                        <input type="submit" value="Download" onclick="DownloadResultsAnalysis()">
+                                    </form>
+                                </p>-->
+                                
                             </div>
                             
                             <br style="clear:both" />

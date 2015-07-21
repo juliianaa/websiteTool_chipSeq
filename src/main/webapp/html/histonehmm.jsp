@@ -7,7 +7,7 @@
 <div id="changeContent" >
     <script src="../js/callServlet.js" type="text/javascript"></script>
     <script src="../js/handlesAnalysisSettings.js" type="text/javascript"></script>
-    
+
     <h1>Tool</h1>
 
     <p>
@@ -24,9 +24,9 @@
         magna, aliquam lobortis nibh dictum eget. 
     </p>
     <br style="clear:both" />
-    
+
     <a href="generateRscript.jsp">Generate R script</a>
-    
+
     <br style="clear:both" />
     <br style="clear:both" />
 
@@ -36,25 +36,27 @@
         <h3>Upload file(s)</h3>
         <div>
             <form>
-                <label class="sampleFile">Upload File:</label> <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
+                <label class="sampleFile">Upload File:</label> 
+                <input id="sampleFile" name="sampleFile" type="file"  multiple=""/><br/>
                 <br style="clear:both" /> 
-             </form>
+            </form>
         </div> 
         <div>
             <p>Example of advanced options!!! Need to change later on</p>
             <form id="advancedForm">
                 <input class="option" type="checkbox" name="defaultOption" value="Default">Default<br /> 
                 <input class="option" type="checkbox" name="advancedOption" value="Advanced">Advanced<br />
-                <label class="advanced">Bins:</label> <input class="advanced" type="number" name="rFunctions[]" value="800"><br />
-                <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="rFunctions[]" value="30"><br />
-                <label class="XtraAdvanced">Multivariate max time: </label> <input class="XtraAdvanced" type="number" name="rFunctions[]" value="300"><br />
+                <label class="advanced">Bins:</label> <input class="advanced" type="number" name="rFunctions[]" value="500"><br />
+                <label class="advanced">Univariate max time: </label> <input class="advanced" type="number" name="rFunctions[]" value="1000"><br />
+                <label class="XtraAdvanced">Multivariate max time: </label> <input class="XtraAdvanced" type="number" name="rFunctions[]" value="1000"><br />
                 <input class="numberOfAnalysis" name="hiddenValue" type="hidden" value="1"><br />
                 <input class="tmpDirPath" name="hiddenValue" type="hidden" value="none"><br />
+                <input class="userDirPath" name="hiddenValue" type="hidden" value="none"><br />
             </form>
         </div> 
-        
+
         <button id="uploadBtn" onClick="performAjaxUpload()">Run analysis</button>
 
-     </div>
+    </div>
 </div>
 

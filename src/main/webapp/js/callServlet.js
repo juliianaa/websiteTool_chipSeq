@@ -8,9 +8,9 @@
  */
 
 function performAjaxUpload() {
-    
+
     NProgress.start();
-    
+
     //Used for parsing multipart/form-data
     var formdata = new FormData();
 
@@ -37,10 +37,13 @@ function performAjaxUpload() {
     $('form input[type="number"]').each(function () {
         arguments_value.push($(this).val());
     });
-    
+
     var hidden_value = [];
     $('form input[type="hidden"]').each(function () {
-        hidden_value.push($(this).val());
+        if ($(this).val() !== 'downloadPath') {
+            hidden_value.push($(this).val());
+        }
+
     });
 
     //adds the list of checked function
@@ -56,48 +59,78 @@ function performAjaxUpload() {
         processData: false,
         contentType: false,
         type: 'POST',
-        success: function (data) {
-            NProgress.done();
-            
-            var values = data.split(",");
-            
-            $('#options').hide();
-            $('#resultsTest').show();
-            $('#downloadLink').html("<h3>Download results:</h3> <a href='../DownloadZipFileServlet?zipPath="+values[0]+"'>Download</a>");
-            $(".tmpDirPath").val(values[1]);        
-            $(".numberOfAnalysis").val(values[2]);
-            $("#performButton").show();
-            
+        success: function (jobNumber) {
+            setTimeout(function () {
+                checkJob(jobNumber);
+            }, 30000);
         },
-        fail: function(jqXHR, textStatus){
-            alert( "Anlaysis failed: " + textStatus );
+        fail: function (jqXHR, textStatus) {
+            alert("Anlaysis failed: " + textStatus);
         }
     });
-      
+}
+
+function checkJob(jobNumber) {
+    $.ajax({
+        url: '../JobServlet?jobNumber=' + jobNumber,
+        type: 'GET',
+        success: function (status) {
+            if (status === 'Still running') {
+                // job is still running, so poll again
+                setTimeout(function () {
+                    checkJob(jobNumber);
+                }, 20000);
+            } else {
+                showResult(status);
+                NProgress.done();
+            }
+        },
+        fail: function (jqXHR, textStatus) {
+            alert("Anlaysis failed: " + textStatus);
+        }
+    });
+}
+
+function showResult(data) {
+    // voor als de job done is
+    var values = data.split(",");
+    $('#options').hide();
+    $('#resultsTest').show();
+    $('#download').html("<h3>Download results:</h3> <a target='_blank' href='../DownloadZipFileServlet?zipPath=" + values[0] + "' onclick='refreshPage()'>Download</a>");
+    $(".tmpDirPath").val(values[1]);
+    $(".userDirPath").val(values[0]);
+    $(".numberOfAnalysis").val(values[2]);
+    $("#performButton").show();
+
+}
+
+
+function refreshPage() {
+    //reloads the online tool page as the user has downloaded the results
+    location.reload(true);
 }
 
 function performGeneratingScript() {
-
     NProgress.start();
 
     var formData = new FormData();
-    
+
     //gets the files that were given by the user
     var pathToFile = document.getElementById("pathToFiles").value;
-    
+
     var arguments_values = [];
     $('form input[type="number"]').each(function () {
         arguments_values.push($(this).val());
-    });  
-    
+    });
+
     formData.append("pathToFile", pathToFile);
     formData.append("argParams", arguments_values);
 
-    
+
     NProgress.inc();
 
     $.ajax({
-        url: 'GenerateRScript',
+        url: '../GenerateRScript',
         data: formData,
         processData: false,
         contentType: false,
@@ -107,7 +140,7 @@ function performGeneratingScript() {
             $('#settings').hide();
             $("#textArea").show();
             $('#rScript').html(data);
-            
+
         }
     });
 }

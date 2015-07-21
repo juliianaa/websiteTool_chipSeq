@@ -26,35 +26,29 @@ public class ConnectWithR {
      *  return the current main R engine instance. Since there can be only one true R instance at a time, this is 
      * also the only instance. This may not be true for future versions, though.
      * 
-     * 
+     * 3
      * (return statement)return current instance of the R engine or <code>null</code> if no R engine was started yet. 
      *
      * @return the connection that has been made with R
      */
     public Rengine rConnect() {
-        
-        
         if(re == null){
-            
+            System.out.println("Connection made");
             //new R engine
-            String rAgs[] = new String[10];
-            rAgs [0] = "–vanilla";
-            re = new Rengine(rAgs, false, null);
-            
-            // Sets the library trees where the needed packages can be found
-            re.eval(".libPaths('/srv/molgenis/R/x86_64-redhat-linux-gnu-library/3.1')");
-            // Calls the needed packages
-            re.eval("library(rJava)");
-            re.eval("library(chromstaR)");
-
-            // Calls the script where all the calculations will be made
-            re.eval("source('/srv/molgenis/rScript/callChromstaROptions.R')");
+            String rArgs[] = {"--vanilla"};
+            re = new Rengine(rArgs, false, null);
             
             if(! re.waitForR()){
                 //Can't make connection with R, program will be stopped immediately
                 System.out.println("Cannot load R");
-                System.exit(1);
+                re = null;
             }
+            re.eval("library(rJava)");
+            
+            // Calls the script where all the calculations will be made
+            re.eval("source('/srv/molgenis/rScript/callChromstaROptions.R')");
+            System.out.println("source('/srv/molgenis/rScript/callChromstaROptions.R')");
+            
         }
         
         //Returns the connection with R 

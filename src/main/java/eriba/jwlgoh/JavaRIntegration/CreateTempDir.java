@@ -18,6 +18,7 @@ import java.nio.file.*;
 public class CreateTempDir {
     
     /**
+     * 
      * Creates an temporary directory where the uploaded files of the client will be saved
      *
      * @param path
@@ -39,7 +40,6 @@ public class CreateTempDir {
         
         //returns the path of the temporary directory
         return tmp_dir.toString();
-
     }
         
 }

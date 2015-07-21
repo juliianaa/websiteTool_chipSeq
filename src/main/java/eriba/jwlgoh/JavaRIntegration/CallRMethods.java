@@ -25,41 +25,31 @@ public class CallRMethods {
      * with the needed parameters for the calculations. 
      * 
      * @param analysisOption
-     * @param tmpDir
+     * @param tmp_dir
+     * @param noaPath
      * @param options
-     * @param analysisDir
      */
-    public void runRFunction(String tmpDir,String analysisOption, ArrayList options, String analysisDir) {
+    public void runRFunction(String tmp_dir, ArrayList options, String noaPath){
         
         System.out.println("call r methods program");
         
-        //Replace the slashes for back slashes as R only accepts paths with back slashes.
-        String tmp_dir = tmpDir.replace("\\", "/");
-        String noa = analysisDir.replace("\\", "/");
-  
-        
-        //Receives the R connection
-        Rengine re = r.rConnect();
-        
         try{
+            //Receives the R connection
+            Rengine re = r.rConnect();
+            
+            System.out.println(re);
+            
+            System.out.println("inputOption('" + tmp_dir + "','" + noaPath + 
+                    "',\n" + options.get(0) + "," + options.get(1) +
+                    "," + options.get(2) + ")");
+            
 
-            //Checks which option the user has given for the calculations. 
-            if (!(analysisOption.equals("Default")|analysisOption.equals(""))){
-                //Enters here when the user chose the Advanced option, this means that the user
-                //has changed a parameter setting to liking instead of using the default setting.
-                System.out.println("to advanced as default params are changed");
+             
+            //How the parameters will be given to the R-script function
+            re.eval("inputOption('" + tmp_dir + "','" + noaPath + "'," 
+                    + options.get(0) + "," + options.get(1) +
+                    "," + options.get(2) + ")");
 
-                //How the parameters will be given to the R-script function
-                re.eval("inputOption('" + tmp_dir + "','" + noa + "'," + options.get(0) + "," + options.get(1) +
-                        "," + options.get(2) + ")");
-
-            }else{
-
-                //Enters here when the user uses the Default option, which only the path of where
-                //the uploaded file(s) needs to be given to the function of the R-scipt.
-                System.out.println("default as no advanced options are given");
-                re.eval("inputOption('"+ tmp_dir + "','" + noa + "')");
-            }
 
         }catch(NullPointerException e){
                 System.out.println("error call R methods: " + e);

@@ -8,7 +8,8 @@ package eriba.jwlgoh.webServlets;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
-import java.util.zip.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
  
 /**
@@ -17,9 +18,7 @@ import org.apache.commons.io.FileUtils;
  * @author Eriba
  */
 public class DownloadZipFileServlet extends HttpServlet {
-
-    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
- 
+    String dir = "/srv/molgenis/temp_chromstaR/";
     /**
      * 
      * Upon receiving the path of the temporary directory where the result file(s) are stored,
@@ -33,19 +32,17 @@ public class DownloadZipFileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        try {
-            
+
+                
             //Gets the path of the temporary directory where the exported result files are.
             String zipFilePath = request.getParameter("zipPath");
-            
-            
+                    
             File directory = new File(zipFilePath);
-            
+
             //Saves all the files in the temporary directory as a list
             File[] files = directory.listFiles();
 
-                
+
             // Calls the zipFiles method for creating a zip stream.
             byte[] zip = zipFiles(files);
 
@@ -59,30 +56,33 @@ public class DownloadZipFileServlet extends HttpServlet {
 
             sos.write(zip);
             sos.flush();
-            
-            
+
+
             //path of the root temp directory
-            String dir = "/srv/molgenis/temp_chromstaR";
             File tmp_dir = new File(dir);
             
-            //Gets the date of the last modified directory
-            long dirDate = tmp_dir.lastModified();
+            String[] UserDirs = tmp_dir.list();
+            
             //int number of two days
             int twoDays = (2*24*60*60*1000);
             
-            //Deletes directories in root of tempDir if they are older than 2 days.
-            if (dirDate > twoDays){
-                FileUtils.deleteDirectory(tmp_dir);
+            for(String userTmpDir : UserDirs)
+            {   
+                File userDir = new File(userTmpDir);
+                //Gets the date of the last modified directory
+                long dirDate = userDir.lastModified();
+
+               if (dirDate > twoDays){
+                    FileUtils.deleteDirectory(userDir);
+                }
             }
-            
+
+
             //Deletes the downloaded directory
             FileUtils.deleteDirectory(directory);
-   
-            
-        }catch (IOException e) {
-            System.out.println(e);
         }
-    }
+            
+    
  
     /**
      * Compress the results file(s) into a zip file, if the filename starts with "export". 
@@ -91,7 +91,7 @@ public class DownloadZipFileServlet extends HttpServlet {
      * @return boas
      * @throws java.io.IOException something went wrong
      */
-    public byte[] zipFiles(File[] files) throws IOException {
+     public byte[] zipFiles(File[] files) throws IOException {
         
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
@@ -103,7 +103,8 @@ public class DownloadZipFileServlet extends HttpServlet {
         for (File dirName : files) {
             
             //takes the subdirectory that starts with "analysis" which contains the analysis result files
-            if (dirName.isDirectory() && dirName.getName().startsWith("analysis")){
+            if (dirName.isDirectory() && dirName.getName().startsWith("error_") 
+                    || dirName.isDirectory() && dirName.getName().startsWith("analysis_")){
                 
                 //Takes the files that can be found in the given subdirectory
                 File[] filesInDir = dirName.listFiles();
@@ -112,15 +113,14 @@ public class DownloadZipFileServlet extends HttpServlet {
                 for (File analysisFile : filesInDir){
                     
                     zos.putNextEntry(new ZipEntry(dirName.getName() + File.separator + analysisFile.getName()));
-                    BufferedInputStream bis = new BufferedInputStream(
-                    new FileInputStream(analysisFile));
-
-                    int bytesRead;
-                    while ((bytesRead = bis.read(bytes)) != -1) {
-                        zos.write(bytes, 0, bytesRead);
+                    try (BufferedInputStream bis = new BufferedInputStream(
+                            new FileInputStream(analysisFile))) {
+                        int bytesRead;
+                        while ((bytesRead = bis.read(bytes)) != -1) {
+                            zos.write(bytes, 0, bytesRead);
+                        }
+                        zos.closeEntry();
                     }
-                    zos.closeEntry();
-                    bis.close();
                 }
             }
         }
